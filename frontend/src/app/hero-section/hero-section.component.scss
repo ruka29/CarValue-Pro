@@ -1,0 +1,7 @@
+// .hero-gradient {
+//     @apply bg-gradient-to-br from-indigo-400 to-purple-500;
+// }
+
+.gradient-text {
+    @apply bg-gradient-to-br from-blue-500 to-purple-500 bg-clip-text text-transparent;
+}

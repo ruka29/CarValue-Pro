@@ -1,0 +1,7 @@
+.background {
+    @apply relative min-h-screen;
+}
+
+.foreground {
+    @apply relative z-10;
+}

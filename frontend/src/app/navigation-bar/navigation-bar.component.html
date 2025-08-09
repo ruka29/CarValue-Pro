@@ -1,0 +1,36 @@
+<header
+  class="sticky top-0 z-50 border-b backdrop-blur-md bg-background/80 border-border/20 font-nunito"
+>
+  <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-2">
+      <div class="flex items-center space-x-3">
+        <div>
+            <img src="logo.png" alt="CarValue Pro Logo" class="h-[75px] w-[75px]">
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-foreground">CarValue Pro</h1>
+          <p class="text-sm text-muted-foreground">
+            AI-Powered Price Prediction
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick="{toggleTheme}"
+          class="transition-all duration-200 glass-card hover:bg-background/70"
+        >
+          <span class="sr-only">Toggle theme</span>
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          class="transition-all duration-200 glass-card hover:bg-background/70"
+        >
+          <span class="sr-only">User menu</span>
+        </Button>
+      </div>
+    </div>
+  </div>
+</header>

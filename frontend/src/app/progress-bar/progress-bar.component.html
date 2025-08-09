@@ -1,0 +1,109 @@
+<div class="p-6 mb-8 bg-white rounded-lg shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <span class="text-lg font-semibold text-gray-700"
+      >Step <span id="current-step">{{ currentStep }}</span> of 5</span
+    >
+    <span
+      class="px-3 py-1 text-sm text-gray-500 bg-gray-100 rounded-full"
+      id="step-title"
+      >{{ stepTitles[currentStep - 1] }}</span
+    >
+  </div>
+
+  <div class="w-full h-3 mb-4 bg-gray-200 rounded-full">
+    <div
+      id="progress-bar"
+      class="h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 progress-bar"
+      style="width: 20%"
+    ></div>
+  </div>
+
+  <div class="flex justify-between">
+    <div class="flex flex-col items-center">
+      <div
+        class="flex items-center justify-center w-8 h-8 mb-2 rounded-full"
+        [ngClass]="currentStep == 1 ? 'bg-blue-500' : 'bg-green-600'"
+      >
+        <lucide-icon
+          [img]="currentStep == 1 ? CarIcon : CheckCircle2Icon"
+          class="w-4 h-4 text-white"
+        ></lucide-icon>
+      </div>
+      <span class="text-xs text-gray-600">Vehicle</span>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <div
+        class="flex items-center justify-center w-8 h-8 mb-2 rounded-full"
+        [ngClass]="
+          currentStep == 2
+            ? 'bg-blue-500'
+            : currentStep > 2
+            ? 'bg-green-600'
+            : 'bg-gray-300'
+        "
+      >
+        <lucide-icon
+          [img]="currentStep <= 2 ? SettingsIcon : CheckCircle2Icon"
+          class="w-4 h-4"
+          [ngClass]="currentStep >= 2 ? 'text-white' : 'text-gray-600'"
+        ></lucide-icon>
+      </div>
+      <span class="text-xs text-gray-600">Engine</span>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <div
+        class="flex items-center justify-center w-8 h-8 mb-2 rounded-full"
+        [ngClass]="
+          currentStep == 3
+            ? 'bg-blue-500'
+            : currentStep > 3
+            ? 'bg-green-600'
+            : 'bg-gray-300'
+        "
+      >
+        <lucide-icon
+          [img]="currentStep <= 3 ? PaletteIcon : CheckCircle2Icon"
+          class="w-4 h-4"
+          [ngClass]="currentStep >= 3 ? 'text-white' : 'text-gray-600'"
+        ></lucide-icon>
+      </div>
+      <span class="text-xs text-gray-600">Appearance</span>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <div
+        class="flex items-center justify-center w-8 h-8 mb-2 rounded-full"
+        [ngClass]="
+          currentStep == 4
+            ? 'bg-blue-500'
+            : currentStep > 4
+            ? 'bg-green-600'
+            : 'bg-gray-300'
+        "
+      >
+        <lucide-icon
+          [img]="currentStep <= 4 ? CalendarIcon : CheckCircle2Icon"
+          class="w-4 h-4"
+          [ngClass]="currentStep >= 4 ? 'text-white' : 'text-gray-600'"
+        ></lucide-icon>
+      </div>
+      <span class="text-xs text-gray-600">Usage</span>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <div
+        class="flex items-center justify-center w-8 h-8 mb-2 rounded-full"
+        [ngClass]="currentStep == 5 ? 'bg-blue-500' : 'bg-gray-300'"
+      >
+        <lucide-icon
+          [img]="CheckCircleIcon"
+          class="w-4 h-4"
+          [ngClass]="currentStep == 5 ? 'text-white' : 'text-gray-600'"
+        ></lucide-icon>
+      </div>
+      <span class="text-xs text-gray-600">Review</span>
+    </div>
+  </div>
+</div>

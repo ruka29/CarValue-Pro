@@ -1,0 +1,409 @@
+<div class="p-8 bg-white rounded-lg shadow-lg">
+  <form [formGroup]="vehicleDataForm">
+    <!-- Step 1: Vehicle Info -->
+    <div id="step-1" class="step-content step-visible step-transition">
+      <h2 class="flex items-center mb-6 text-2xl font-semibold text-gray-800">
+        <lucide-icon
+          [img]="Info"
+          class="mt-0.5 mr-2 text-blue-600"
+        ></lucide-icon>
+        Vehicle Information
+      </h2>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <label
+            for="vehicle-model"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Vehicle Model *
+          </label>
+          <select
+            id="vehicle-model"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="vehicleModel"
+            required
+            (change)="onChangeVehicleModel()"
+          >
+            <option value="">Select a model</option>
+            <option *ngFor="let vehicle of vehicles" [value]="vehicle.model">
+              {{ vehicle.model }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label
+            for="vehicle-type"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Vehicle Type *
+          </label>
+          <select
+            id="vehicle-type"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="vehicleType"
+            required
+          >
+            <option value="">Select a type</option>
+            <option
+              *ngFor="let type of getSelectedVehicleTypes()"
+              [value]="type"
+            >
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Engine Info -->
+    <div id="step-2" class="step-content step-hidden step-transition">
+      <h2 class="flex items-center mb-6 text-2xl font-semibold text-gray-800">
+        <lucide-icon
+          [img]="Settings"
+          class="mt-0.5 mr-2 text-blue-600"
+        ></lucide-icon>
+        Engine Information
+      </h2>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <label
+            for="motor-capacity"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Motor Capacity (L) *
+          </label>
+          <select
+            id="motor-capacity"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="motorCapacity"
+            required
+          >
+            <option value="">Select capacity</option>
+            <option
+              *ngFor="let type of getSelectedVehicleEngineCapacities()"
+              [value]="type"
+            >
+              {{ type }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label
+            for="fuel-type"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Fuel Type *
+          </label>
+          <select
+            id="fuel-type"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="fuelType"
+            required
+          >
+            <option value="">Select fuel type</option>
+            <option
+              *ngFor="let type of getSelectedVehicleEngineTypes()"
+              [value]="type"
+            >
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Appearance -->
+    <div id="step-3" class="step-content step-hidden step-transition">
+      <h2 class="flex items-center mb-6 text-2xl font-semibold text-gray-800">
+        <lucide-icon
+          [img]="Palette"
+          class="mt-0.5 mr-2 text-blue-600"
+        ></lucide-icon>
+        Vehicle Appearance
+      </h2>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <label
+            for="color"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Color *
+          </label>
+          <select
+            id="color"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="color"
+            required
+          >
+            <option value="">Select color</option>
+            <option value="White">White</option>
+            <option value="Black">Black</option>
+            <option value="Silver">Silver</option>
+            <option value="Gray">Gray</option>
+            <option value="Blue">Blue</option>
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>
+            <option value="Yellow">Yellow</option>
+            <option value="Orange">Orange</option>
+            <option value="Brown">Brown</option>
+          </select>
+        </div>
+        <div>
+          <label
+            for="wheel-orientation"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Wheel Orientation *
+          </label>
+          <select
+            id="wheel-orientation"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="wheelOrientation"
+            required
+          >
+            <option value="">Select orientation</option>
+            <option value="Left">Left Hand Drive</option>
+            <option value="Right">Right Hand Drive</option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-6">
+        <label
+          for="condition"
+          class="block mb-2 text-sm font-medium text-gray-700"
+        >
+          Vehicle Condition *
+        </label>
+        <select
+          id="condition"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          formControlName="vehicleCondition"
+          required
+        >
+          <option value="">Select condition</option>
+          <option value="Excellent">Excellent</option>
+          <option value="Good">Good</option>
+          <option value="Fair">Fair</option>
+          <option value="Poor">Poor</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Step 4: Usage -->
+    <div id="step-4" class="step-content step-hidden step-transition">
+      <h2 class="flex items-center mb-6 text-2xl font-semibold text-gray-800">
+        <lucide-icon
+          [img]="CalendarDays"
+          class="mt-0.5 mr-2 text-blue-600"
+        ></lucide-icon>
+        Usage Information
+      </h2>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <label
+            for="year"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Year of Manufacture *
+          </label>
+          <input
+            type="number"
+            id="year"
+            min="1990"
+            max="2025"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="manufactureYear"
+            placeholder="e.g., 2020"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="mileage"
+            class="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Mileage (km) *
+          </label>
+          <input
+            type="number"
+            id="mileage"
+            min="0"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            formControlName="milage"
+            placeholder="e.g., 50000"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Review -->
+    <div id="step-5" class="step-content step-hidden step-transition">
+      <h2 class="flex items-center mb-6 text-2xl font-semibold text-gray-800">
+        <lucide-icon
+          [img]="CheckCircle2"
+          class="mt-0.5 mr-2 text-blue-600"
+        ></lucide-icon>
+        Review & Predict
+      </h2>
+      <div
+        id="review-summary"
+        class="grid grid-cols-1 gap-4 mb-6 md:grid-cols-2"
+      >
+        <div
+          *ngFor="let section of reviewData"
+          class="p-4 border border-gray-200 rounded-lg bg-gray-50"
+        >
+          <h3 class="flex items-center mb-3 font-semibold text-gray-800">
+            <lucide-icon
+              [img]="section.icon"
+              class="mr-2 text-blue-600"
+            ></lucide-icon>
+            {{ section.title }}
+          </h3>
+
+          <div class="space-y-2">
+            <div
+              *ngFor="let item of section.items"
+              class="flex justify-between"
+            >
+              <span class="text-gray-600">{{ item.label }}:</span>
+              <span class="font-medium">{{ item.value }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button
+          type="button"
+          id="predict-btn"
+          class="px-8 py-3 font-bold text-white transition duration-300 transform bg-green-600 rounded-lg hover:bg-green-700 hover:scale-105"
+          (click)="onClickPredictValue()"
+        >
+          <lucide-icon
+            [img]="Calculator"
+            class="inline-block mr-2"
+          ></lucide-icon>
+          Predict Price
+        </button>
+      </div>
+    </div>
+
+    <!-- Result Display -->
+    <div id="step-6" class="step-content step-hidden step-transition">
+      <h2 class="flex items-center mb-6 text-2xl font-semibold text-gray-800">
+        <lucide-icon
+          [img]="Trophy"
+          class="mt-0.5 mr-2 text-yellow-500"
+        ></lucide-icon>
+        Price Prediction Result
+      </h2>
+      <div id="result-content" class="text-center">
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+          <div class="text-center">
+            <i class="fas fa-check-circle text-green-600 text-4xl mb-4"></i>
+            <h3 class="text-2xl font-bold text-green-800 mb-2">
+              Prediction Complete!
+            </h3>
+            <p class="text-green-700 mb-6">
+              Based on your vehicle information, here's our estimate:
+            </p>
+
+            <!-- Enhanced price display -->
+            <div
+              class="relative bg-gradient-to-br from-green-400 to-green-600 rounded-xl p-8 mb-4 shadow-2xl transform hover:scale-105 transition-all duration-300"
+            >
+              <div
+                class="absolute inset-0 bg-white opacity-10 rounded-xl"
+              ></div>
+              <div class="relative z-10">
+                <div
+                  class="text-xs font-semibold text-green-100 uppercase tracking-wider mb-2"
+                >
+                  Estimated Market Value
+                </div>
+                <div
+                  class="text-5xl md:text-6xl font-black text-white mb-2 drop-shadow-lg"
+                >
+                  {{ predictedPrice | currency : "USD" : "symbol" : "1.0-0" }}
+                </div>
+                <div
+                  class="inline-flex items-center bg-white bg-opacity-20 rounded-full px-4 py-2"
+                >
+                  <i class="fas fa-chart-line text-green-200 mr-2"></i>
+                  <span class="text-green-100 font-medium"
+                    >Market Analysis Complete</span
+                  >
+                </div>
+              </div>
+
+              <!-- Decorative elements -->
+              <div
+                class="absolute top-4 right-4 w-16 h-16 bg-white bg-opacity-10 rounded-full"
+              ></div>
+              <div
+                class="absolute bottom-4 left-4 w-8 h-8 bg-white bg-opacity-10 rounded-full"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <h4 class="font-semibold text-blue-800 mb-2">
+            <i class="fas fa-info-circle mr-2"></i>
+            Important Notes:
+          </h4>
+          <ul class="text-sm text-blue-700 space-y-1">
+            <li>• This is an estimated value based on market data</li>
+            <li>
+              • Actual prices may vary based on location and market conditions
+            </li>
+            <li>
+              • Consider getting a professional appraisal for the most accurate
+              value
+            </li>
+            <li>
+              • Vehicle history and maintenance records can affect the final
+              price
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex justify-center">
+          <button
+            onclick="window.location.reload()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 inline-flex items-center"
+          >
+            <lucide-icon [img]="RotateCcw" class="mr-2"></lucide-icon>
+            New Prediction
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Navigation Buttons -->
+  <div class="flex justify-between mt-8">
+    <button
+      type="button"
+      id="prev-btn"
+      class="flex items-center px-6 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+      [disabled]="currentStep === 1"
+      (click)="onPrevBtnClick()"
+      [ngClass]="currentStep == 6 ? 'hidden' : ''"
+    >
+      <lucide-icon [img]="ArrowLeft" class="mr-2"></lucide-icon>
+      Previous
+    </button>
+    <button
+      type="button"
+      id="next-btn"
+      class="flex items-center px-6 py-2 font-bold text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700"
+      (click)="onNextBtnClick()"
+      [ngClass]="currentStep == 5 || currentStep == 6 ? 'hidden' : ''"
+    >
+      Next
+      <lucide-icon [img]="ArrowRight" class="ml-2"></lucide-icon>
+    </button>
+  </div>
+</div>
